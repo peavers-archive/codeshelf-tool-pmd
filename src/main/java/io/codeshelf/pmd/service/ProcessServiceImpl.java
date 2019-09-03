@@ -15,69 +15,63 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * @author Chris Turner (chris@forloop.space)
- */
+/** @author Chris Turner (chris@forloop.space) */
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProcessServiceImpl implements ProcessService {
 
-    private final FirehoseService firehoseService;
+  private final FirehoseService firehoseService;
 
-    @Value("${codeshelf.workingDir}")
-    private String workingDir;
+  @Value("${codeshelf.workingDir}")
+  private String workingDir;
 
-    @Value("${codeshelf.dry}")
-    private boolean dry;
+  @Value("${codeshelf.dry}")
+  private boolean dry;
 
-    @Override
-    public void execute() throws IOException {
+  @Override
+  public void execute() throws IOException {
 
-        final List<String> command = buildCommand();
+    final List<String> command = buildCommand();
+    log.info("executing command {}", Arrays.toString(command.toArray()).replace(",", ""));
 
-        log.info("executing command {}", Arrays.toString(command.toArray()).replace(",", ""));
+    final ProcessBuilder processBuilder = new ProcessBuilder(command);
+    final Process process = processBuilder.start();
+    final String output = consoleOutput(process.getInputStream());
+    final String error = consoleOutput(process.getErrorStream());
 
-        final ProcessBuilder processBuilder = new ProcessBuilder(command);
-        final Process process = processBuilder.start();
-        final String output = consoleOutput(process.getInputStream());
-        final String error = consoleOutput(process.getErrorStream());
-
-        if (StringUtils.isNotBlank(error)) {
-            log.error(error);
-        } else {
-            log.info("pmd result {}", output);
-        }
-
-        process.getInputStream().close();
-        process.getErrorStream().close();
-
-        if (!dry) {
-            firehoseService.pushRecord("code-linter", output.getBytes());
-        }
+    if (StringUtils.isNotBlank(error)) {
+      log.error(error);
+    } else {
+      log.info("result {}", output);
     }
 
-    private List<String> buildCommand() {
-
-        final ArrayList<String> commands = new ArrayList<>();
-        commands.add("/Users/chris/Documents/pmd-bin-6.17.0/bin/run.sh");
-        commands.add("pmd");
-        commands.add("-dir");
-        commands.add(workingDir);
-        commands.add("-format");
-        commands.add("csv");
-        commands.add("-R");
-        commands.add("rulesets/java/quickstart.xml");
-
-        return commands;
+    if (!dry) {
+      firehoseService.pushRecord("code-linter", output.getBytes());
     }
+  }
 
-    private String consoleOutput(final InputStream stream) {
-        final BufferedReader output = new BufferedReader(new InputStreamReader(stream));
+  private List<String> buildCommand() {
 
-        return output
-                .lines()
-                .map(line -> line + System.getProperty("line.separator"))
-                .collect(Collectors.joining());
-    }
+    final ArrayList<String> commands = new ArrayList<>();
+    commands.add("pmd");
+    commands.add("-dir");
+    commands.add(workingDir);
+    commands.add("-format");
+    commands.add("csv");
+    commands.add("-R");
+    commands.add("rulesets/java/quickstart.xml");
+
+    return commands;
+  }
+
+  private String consoleOutput(final InputStream stream) {
+
+    final BufferedReader output = new BufferedReader(new InputStreamReader(stream));
+
+    return output
+        .lines()
+        .map(line -> line + System.getProperty("line.separator"))
+        .collect(Collectors.joining());
+  }
 }

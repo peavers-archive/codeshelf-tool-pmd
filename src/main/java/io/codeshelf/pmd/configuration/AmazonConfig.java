@@ -5,15 +5,13 @@ import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehoseClientBuilder
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * @author Chris Turner (chris@forloop.space)
- */
+/** @author Chris Turner (chris@forloop.space) */
 @Configuration
 public class AmazonConfig {
 
-    @Bean
-    public AmazonKinesisFirehose amazonKinesisFirehose() {
+  @Bean
+  public AmazonKinesisFirehose amazonKinesisFirehose() {
 
-        return AmazonKinesisFirehoseClientBuilder.defaultClient();
-    }
+    return AmazonKinesisFirehoseClientBuilder.defaultClient();
+  }
 }

@@ -3,5 +3,5 @@ spring:
     name: codeshelf-tool-pmd
 
 codeshelf:
-  dry: true
+  dry: ${DRY}
   workingDir: ${WORKING_DIR}

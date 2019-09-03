@@ -10,29 +10,25 @@ import org.springframework.stereotype.Service;
 
 import java.nio.ByteBuffer;
 
-/**
- * @author Chris Turner (chris@forloop.space)
- */
+/** @author Chris Turner (chris@forloop.space) */
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class FirehoseServiceImpl implements FirehoseService {
 
-    private final AmazonKinesisFirehose amazonKinesisFirehose;
+  private final AmazonKinesisFirehose amazonKinesisFirehose;
 
-    @Override
-    public PutRecordResult pushRecord(final String deliveryStream, final byte[] bytes) {
+  @Override
+  public PutRecordResult pushRecord(final String deliveryStream, final byte[] bytes) {
 
-        final PutRecordRequest putRecordRequest = new PutRecordRequest();
-        putRecordRequest.setDeliveryStreamName(deliveryStream);
+    final PutRecordRequest putRecordRequest = new PutRecordRequest();
+    putRecordRequest.setDeliveryStreamName(deliveryStream);
 
-        final Record record = new Record().withData(ByteBuffer.wrap(bytes));
-        putRecordRequest.setRecord(record);
+    final Record record = new Record().withData(ByteBuffer.wrap(bytes));
+    putRecordRequest.setRecord(record);
 
-        log.info("sending to firehose...");
-        final PutRecordResult putRecordResult = amazonKinesisFirehose.putRecord(putRecordRequest);
-        log.info("sending to firehose complete.");
+    log.info("firehose record {}", record.toString());
 
-        return putRecordResult;
-    }
+    return amazonKinesisFirehose.putRecord(putRecordRequest);
+  }
 }

@@ -1,6 +1,6 @@
-FROM openjdk:11-alpine
+FROM openjdk:14-alpine
 
-ENV PMD_VERSION 6.14.0
+ENV PMD_VERSION 6.17.0
 ENV JAR_NAME codeshelf-tool-eslint-0.0.1-SNAPSHOT.jar
 
 RUN apk add --update --no-cache wget unzip
@@ -12,10 +12,10 @@ RUN cd /opt \
       && rm -f pmd.zip \
       && mv pmd-bin-${PMD_VERSION} pmd
 
-COPY pmd /usr/bin/pmd
-COPY cpd /usr/bin/cpd
+COPY ./misc/pmd /usr/bin/pmd
+COPY ./misc/cpd /usr/bin/cpd
 RUN chmod +x /usr/bin/pmd /usr/bin/cpd
 
 COPY ./build/libs/${JAR_NAME} /app/
 
-CMD ["java", "-Xmx4G", "-jar", "/app/${JAR_NAME}"]
+CMD ["java", "-jar", "/app/codeshelf-tool-eslint-0.0.1-SNAPSHOT.jar"]
