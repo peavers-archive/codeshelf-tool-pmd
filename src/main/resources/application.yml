@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: codeshelf-tool-pmd
+
+codeshelf:
+  dry: true
+  workingDir: ${WORKING_DIR}
