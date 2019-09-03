@@ -1,10 +1,10 @@
-# Codeshelf Tool ESLINT
-Send the output from executing ESLINT to AWS Firehose
+# Codeshelf Tool PMD
+Send the output from executing PMD to AWS Firehose
 
 ## Badges
 The most important part of a readme of course
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1ec155d8109e4a0bbd87388f095679f8)](https://www.codacy.com/app/peavers/codeshelf-tool-eslint?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=peavers/codeshelf-tool-eslint&amp;utm_campaign=Badge_Grade)
+//TODO
 
 ## Why
 Just playing around with Firehose and seeing what cool server side processing I can do with it
