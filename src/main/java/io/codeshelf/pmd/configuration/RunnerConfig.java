@@ -1,7 +1,7 @@
 package io.codeshelf.pmd.configuration;
 
 import io.codeshelf.pmd.runner.ProcessRunner;
-import io.codeshelf.pmd.service.ProcessService;
+import io.codeshelf.tool.executor.service.ProcessService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;

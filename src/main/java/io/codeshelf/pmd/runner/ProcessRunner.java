@@ -1,11 +1,13 @@
 package io.codeshelf.pmd.runner;
 
-import io.codeshelf.pmd.service.ProcessService;
+import io.codeshelf.tool.executor.service.ProcessService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /** @author Chris Turner (chris@forloop.space) */
 @Slf4j
@@ -14,12 +16,25 @@ public class ProcessRunner implements CommandLineRunner {
 
   private final ProcessService processService;
 
+  @Value("${codeshelf.workingDir}")
+  private String workingDir;
+
   @Override
   public void run(final String... strings) {
+
+    final ArrayList<String> commands = new ArrayList<>();
+    commands.add("pmd");
+    commands.add("-dir");
+    commands.add(workingDir);
+    commands.add("-format");
+    commands.add("csv");
+    commands.add("-R");
+    commands.add("rulesets/java/quickstart.xml");
+
     try {
-      processService.execute();
-    } catch (final IOException | InterruptedException e) {
-      log.error("something went wrong... {}", e.getMessage());
+      processService.execute(commands);
+    } catch (final IOException | InterruptedException exception) {
+      log.error("something went wrong... {}", exception.getMessage());
     }
   }
 }
