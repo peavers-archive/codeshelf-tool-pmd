@@ -4,7 +4,6 @@ spring:
   main:
     banner-mode: "off"
 
-
 codeshelf:
   dry: ${DRY}
   workingDir: ${WORKING_DIR}
