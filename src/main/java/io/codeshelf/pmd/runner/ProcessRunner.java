@@ -30,6 +30,7 @@ public class ProcessRunner implements CommandLineRunner {
     commands.add("csv");
     commands.add("-R");
     commands.add("rulesets/java/quickstart.xml");
+    commands.add("-no-cache");
 
     try {
       processService.execute(commands);
