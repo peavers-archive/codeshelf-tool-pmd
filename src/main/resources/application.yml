@@ -1,6 +1,9 @@
 spring:
   application:
     name: codeshelf-tool-pmd
+  main:
+    banner-mode: "off"
+
 
 codeshelf:
   dry: ${DRY}
