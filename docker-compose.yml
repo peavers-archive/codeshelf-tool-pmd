@@ -9,7 +9,7 @@ services:
       - WORKING_DIR=/src
       - DRY=true
       - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_KEY}
+      - AWS_SECRET_KEY=${AWS_SECRET_KEY}
       - AWS_REGION=${AWS_REGION}
     logging:
       options:
