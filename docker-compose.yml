@@ -7,9 +7,9 @@ services:
       - ${PWD}:/src
     environment:
       - WORKING_DIR=/src
-      - DRY=false
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - DRY=true
+      - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_KEY}
       - AWS_REGION=${AWS_REGION}
     logging:
       options:
