@@ -26,13 +26,8 @@ ext {
 }
 
 dependencies {
-    // Spring
     implementation 'org.springframework.cloud:spring-cloud-starter-task'
-
-    // Codeshelf
-    implementation 'com.github.peavers:codeshelf-tool-executor:-SNAPSHOT'
-
-    // Utils
+    implementation('com.github.peavers:codeshelf-tool-executor:-SNAPSHOT') { changing = true }
     implementation 'org.json:json:20190722'
 
     compileOnly 'org.projectlombok:lombok'
@@ -45,4 +40,8 @@ dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
     }
+}
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
