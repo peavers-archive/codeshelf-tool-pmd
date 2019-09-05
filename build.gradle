@@ -26,8 +26,14 @@ ext {
 }
 
 dependencies {
-    implementation 'com.github.peavers:codeshelf-tool-executor:-SNAPSHOT'
+    // Spring
     implementation 'org.springframework.cloud:spring-cloud-starter-task'
+
+    // Codeshelf
+    implementation 'com.github.peavers:codeshelf-tool-executor:-SNAPSHOT'
+
+    // Utils
+    implementation 'org.json:json:20190722'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
