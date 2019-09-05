@@ -27,13 +27,13 @@ public class ProcessRunner implements CommandLineRunner {
     commands.add("-dir");
     commands.add(workingDir);
     commands.add("-format");
-    commands.add("csv");
+    commands.add("xml");
     commands.add("-R");
     commands.add("rulesets/java/quickstart.xml");
     commands.add("-no-cache");
 
     try {
-      processService.execute(commands);
+      processService.execute(commands, "code-linter");
     } catch (final IOException | InterruptedException exception) {
       log.error("something went wrong... {}", exception.getMessage());
     }
