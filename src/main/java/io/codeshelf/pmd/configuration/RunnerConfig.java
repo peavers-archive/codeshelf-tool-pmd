@@ -16,7 +16,6 @@ public class RunnerConfig {
 
   @Bean
   public CommandLineRunner commandLineRunner() {
-
     return new ProcessRunner(processService);
   }
 }
